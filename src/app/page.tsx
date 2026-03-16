@@ -41,8 +41,11 @@ export default function Home() {
               transition={{ duration: 0.4 }}
               className="mb-8"
             >
-              <Logo size="md" className="md:hidden" variant="light" />
-              <Logo size="lg" className="hidden md:inline-flex" variant="light" />
+              <Logo
+                size="lg"
+                variant="light"
+                className="origin-center scale-[0.75] md:scale-100"
+              />
             </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
