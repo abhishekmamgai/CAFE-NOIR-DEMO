@@ -49,13 +49,13 @@ export default function MenuCard({ item, className }: MenuCardProps) {
           className
         )}
       >
-        <div className="relative h-[240px] overflow-hidden">
+        <div className="relative h-[180px] sm:h-[220px] md:h-[240px] overflow-hidden">
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.4 }}
             className="w-full h-full relative"
           >
-            <Image
+              <Image
               src={item.image_url}
               alt={item.name}
               fill
@@ -105,7 +105,7 @@ export default function MenuCard({ item, className }: MenuCardProps) {
       {/* Lightbox Modal */}
       <AnimatePresence>
         {isLightboxOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -116,7 +116,7 @@ export default function MenuCard({ item, className }: MenuCardProps) {
             
             <motion.div
               layoutId={`card-${item.id}`}
-              className="bg-white max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-sm relative z-10 flex flex-col md:flex-row"
+              className="bg-white w-full h-full md:max-w-4xl md:h-auto md:max-h-[90vh] overflow-y-auto rounded-none md:rounded-sm relative z-10 flex flex-col md:flex-row"
             >
               <button
                 onClick={() => setIsLightboxOpen(false)}
@@ -125,7 +125,7 @@ export default function MenuCard({ item, className }: MenuCardProps) {
                 <X size={24} />
               </button>
 
-              <div className="md:w-1/2 relative min-h-[300px] md:min-h-full">
+              <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-full">
                 <Image
                   src={item.image_url}
                   alt={item.name}
@@ -134,7 +134,7 @@ export default function MenuCard({ item, className }: MenuCardProps) {
                 />
               </div>
 
-              <div className="md:w-1/2 p-8 md:p-12 self-center">
+              <div className="w-full md:w-1/2 p-6 md:p-12 self-center">
                 <div className="mb-6">
                   <p className="text-cafe-amber text-xs font-bold tracking-[0.2em] uppercase mb-4">
                     {item.category}

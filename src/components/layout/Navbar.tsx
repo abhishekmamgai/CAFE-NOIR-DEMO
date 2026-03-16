@@ -7,6 +7,7 @@ import { Menu, X, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { Logo } from "@/components/ui/Logo";
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -40,8 +41,12 @@ export default function Navbar() {
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="/" className="font-serif text-2xl font-bold text-cafe-dark tracking-wider">
-          CAFE NOIR
+        <Link
+          href="/"
+          className="transition-opacity duration-200 hover:opacity-80"
+          aria-label="Cafe Noir home"
+        >
+          <Logo size="sm" variant="dark" />
         </Link>
 
         {/* Desktop Nav */}
@@ -69,8 +74,9 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-cafe-dark"
+          className="md:hidden text-[#633806]"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -80,35 +86,47 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -40 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-cafe-bg border-b border-cafe-border p-6 md:hidden flex flex-col space-y-4"
+            exit={{ opacity: 0, y: -40 }}
+            className="fixed inset-0 top-[64px] bg-cafe-bg/95 backdrop-blur-md md:hidden flex flex-col"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  "text-lg font-medium",
-                  pathname === link.href ? "text-cafe-amber" : "text-cafe-dark"
-                )}
-                onClick={() => setIsOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-            <Link
-              href="/auth"
-              className="flex items-center space-x-2 text-lg font-medium text-cafe-dark"
+            <div className="flex-1 overflow-y-auto">
+              <nav className="flex flex-col divide-y divide-cafe-border/70">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={cn(
+                      "px-6 py-4 text-lg font-medium tracking-wide",
+                      pathname === link.href ? "text-cafe-amber bg-white/40" : "text-cafe-dark hover:bg-white/40"
+                    )}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                <Link
+                  href="/auth"
+                  className="px-6 py-4 text-lg font-medium flex items-center justify-between text-cafe-dark hover:bg-white/40"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span>Sign In</span>
+                  <User size={20} />
+                </Link>
+              </nav>
+            </div>
+            <button
+              className="absolute top-4 right-4 text-[#633806]"
               onClick={() => setIsOpen(false)}
+              aria-label="Close navigation menu"
             >
-              <User size={20} />
-              <span>Sign In</span>
-            </Link>
+              <X size={26} />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
     </nav>
   );
 }
+

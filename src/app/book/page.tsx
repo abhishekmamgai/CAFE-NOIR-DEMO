@@ -96,29 +96,32 @@ export default function BookingPage() {
     <div className="min-h-screen bg-cafe-bg">
       <Navbar />
 
-      <main className="pt-32 pb-24 px-6">
+      <main className="pt-28 md:pt-32 pb-20 md:pb-24 px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="font-serif text-4xl text-cafe-dark mb-4 tracking-tight">Book a Table</h1>
+          <div className="text-center mb-10 md:mb-12 px-2">
+            <h1 className="font-serif text-3xl md:text-4xl text-cafe-dark mb-4 tracking-tight">Book a Table</h1>
             <p className="text-cafe-muted">Join us for a premium dining experience.</p>
           </div>
 
           {/* Stepper */}
           {step <= 4 && (
-            <div className="flex justify-between items-center mb-12 overflow-x-auto pb-4 scrollbar-hide">
+            <div className="flex justify-between items-center mb-10 md:mb-12 overflow-x-auto pb-4 scrollbar-hide">
               {steps.map((s) => (
-                <div key={s.id} className="flex flex-col items-center flex-1 min-w-[80px]">
+                <div key={s.id} className="flex flex-col items-center flex-1 min-w-[72px]">
                   <div className={cn(
                     "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300",
                     step >= s.id ? "bg-cafe-amber border-cafe-amber text-white" : "bg-white border-cafe-border text-cafe-muted"
                   )}>
                     <s.icon size={18} />
                   </div>
-                  <span className={cn(
-                    "text-[10px] mt-2 font-bold uppercase tracking-widest",
-                    step >= s.id ? "text-cafe-amber" : "text-cafe-muted"
-                  )}>
+                  <span
+                    className={cn(
+                      "text-[10px] mt-2 font-bold uppercase tracking-widest",
+                      step >= s.id ? "text-cafe-amber" : "text-cafe-muted",
+                      "hidden xs:inline-block sm:inline-block"
+                    )}
+                  >
                     {s.name}
                   </span>
                 </div>
@@ -127,7 +130,7 @@ export default function BookingPage() {
           )}
 
           {/* Form Container */}
-          <div className="bg-white border border-cafe-border p-8 md:p-12 relative overflow-hidden min-h-[500px]">
+          <div className="bg-white border border-cafe-border p-6 md:p-10 relative overflow-hidden min-h-[480px]">
             <AnimatePresence mode="wait">
               {step === 1 && (
                 <motion.div
@@ -163,7 +166,7 @@ export default function BookingPage() {
 
                   <div>
                     <h3 className="font-serif text-xl font-bold text-cafe-dark mb-6">Available Slots</h3>
-                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                    <div className="grid grid-cols-4 md:grid-cols-6 gap-3">
                       {timeSlots.map((time) => {
                         const isBusy = busySlots.includes(time);
                         const isSelected = booking.time === time;
@@ -173,7 +176,7 @@ export default function BookingPage() {
                             disabled={isBusy}
                             onClick={() => setBooking({...booking, time})}
                             className={cn(
-                              "py-2 text-sm font-medium border transition-all duration-200",
+                              "py-2 min-h-[44px] text-sm font-medium border transition-all duration-200",
                               isSelected ? "bg-cafe-amber border-cafe-amber text-white shadow-sm" : 
                               isBusy ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed" : 
                               "bg-white border-cafe-border hover:border-cafe-amber text-cafe-dark"
@@ -272,7 +275,7 @@ export default function BookingPage() {
                         type="text"
                         value={booking.name}
                         onChange={(e) => setBooking({...booking, name: e.target.value})}
-                        className="w-full bg-transparent border-b border-cafe-border pb-2 outline-none focus:border-cafe-amber transition-colors text-cafe-dark"
+                        className="w-full bg-transparent border-b border-cafe-border pb-3 outline-none focus:border-cafe-amber transition-colors text-cafe-dark text-[16px]"
                         placeholder="John Doe"
                       />
                     </div>
@@ -282,7 +285,7 @@ export default function BookingPage() {
                         type="email"
                         value={booking.email}
                         onChange={(e) => setBooking({...booking, email: e.target.value})}
-                        className="w-full bg-transparent border-b border-cafe-border pb-2 outline-none focus:border-cafe-amber transition-colors text-cafe-dark"
+                        className="w-full bg-transparent border-b border-cafe-border pb-3 outline-none focus:border-cafe-amber transition-colors text-cafe-dark text-[16px]"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -292,7 +295,7 @@ export default function BookingPage() {
                         type="tel"
                         value={booking.phone}
                         onChange={(e) => setBooking({...booking, phone: e.target.value})}
-                        className="w-full bg-transparent border-b border-cafe-border pb-2 outline-none focus:border-cafe-amber transition-colors text-cafe-dark"
+                        className="w-full bg-transparent border-b border-cafe-border pb-3 outline-none focus:border-cafe-amber transition-colors text-cafe-dark text-[16px]"
                         placeholder="+91 99999 99999"
                       />
                     </div>
@@ -304,7 +307,7 @@ export default function BookingPage() {
                       value={booking.requests}
                       onChange={(e) => setBooking({...booking, requests: e.target.value})}
                       rows={3}
-                      className="w-full bg-transparent border border-cafe-border p-4 outline-none focus:border-cafe-amber transition-colors text-cafe-dark"
+                      className="w-full bg-transparent border border-cafe-border p-4 outline-none focus:border-cafe-amber transition-colors text-cafe-dark text-[16px]"
                       placeholder="Birthdays, dietary requirements, or any special moments..."
                     />
                   </div>
@@ -334,7 +337,7 @@ export default function BookingPage() {
                 >
                    <h3 className="font-serif text-xl font-bold text-cafe-dark mb-6">Review Reservation</h3>
                   
-                   <div className="grid grid-cols-2 gap-8 border-y border-cafe-border py-8">
+                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 border-y border-cafe-border py-8">
                       <div>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-cafe-muted mb-1">Date & Time</p>
                         <p className="font-serif text-lg font-bold text-cafe-dark">{format(booking.date, 'EEEE, dd MMMM yyyy')}</p>

@@ -24,26 +24,43 @@ const galleryImages = [
 
 export default function GalleryPage() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  const nextImage = (e?: React.MouseEvent) => {
+  const nextImage = (e?: React.MouseEvent | React.TouchEvent) => {
     e?.stopPropagation();
     if (selectedIndex !== null) {
       setSelectedIndex((selectedIndex + 1) % galleryImages.length);
     }
   };
 
-  const prevImage = (e?: React.MouseEvent) => {
+  const prevImage = (e?: React.MouseEvent | React.TouchEvent) => {
     e?.stopPropagation();
     if (selectedIndex !== null) {
       setSelectedIndex((selectedIndex - 1 + galleryImages.length) % galleryImages.length);
     }
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    const threshold = 40;
+    if (deltaX > threshold) {
+      prevImage(e);
+    } else if (deltaX < -threshold) {
+      nextImage(e);
+    }
+    setTouchStartX(null);
+  };
+
   return (
     <div className="min-h-screen bg-cafe-bg">
       <Navbar />
 
-      <main className="pt-32 pb-24 px-6">
+      <main className="pt-28 md:pt-32 pb-20 md:pb-24 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <motion.p
@@ -57,7 +74,7 @@ export default function GalleryPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="font-serif text-4xl md:text-6xl text-cafe-dark mb-6"
+              className="font-serif text-3xl md:text-4xl lg:text-6xl text-cafe-dark mb-6"
             >
               Gallery
             </motion.h1>
@@ -75,7 +92,7 @@ export default function GalleryPage() {
             variants={{
               visible: { transition: { staggerChildren: 0.1 } }
             }}
-            className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
           >
             {galleryImages.map((src, index) => (
               <motion.div
@@ -84,7 +101,7 @@ export default function GalleryPage() {
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0 }
                 }}
-                className="relative group cursor-pointer overflow-hidden rounded-sm break-inside-avoid"
+                className="relative group cursor-pointer overflow-hidden rounded-sm"
                 onClick={() => setSelectedIndex(index)}
               >
                 <div className="relative">
@@ -113,6 +130,8 @@ export default function GalleryPage() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setSelectedIndex(null)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             <button
               className="absolute top-6 right-6 text-white/70 hover:text-white z-[110]"
@@ -122,18 +141,34 @@ export default function GalleryPage() {
             </button>
 
             <button
-              className="absolute left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-[110] p-2 bg-white/10 rounded-full transition-all"
+              className="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-[110] p-2 bg-white/10 rounded-full transition-all"
               onClick={prevImage}
             >
               <ChevronLeft size={40} />
             </button>
 
             <button
-              className="absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-[110] p-2 bg-white/10 rounded-full transition-all"
+              className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white z-[110] p-2 bg-white/10 rounded-full transition-all"
               onClick={nextImage}
             >
               <ChevronRight size={40} />
             </button>
+
+            {/* Mobile arrows at bottom */}
+            <div className="flex md:hidden absolute bottom-6 inset-x-0 justify-center gap-8 z-[110]">
+              <button
+                className="p-3 bg-white/10 rounded-full text-white/80"
+                onClick={prevImage}
+              >
+                <ChevronLeft size={28} />
+              </button>
+              <button
+                className="p-3 bg-white/10 rounded-full text-white/80"
+                onClick={nextImage}
+              >
+                <ChevronRight size={28} />
+              </button>
+            </div>
 
             <motion.div
               key={selectedIndex}

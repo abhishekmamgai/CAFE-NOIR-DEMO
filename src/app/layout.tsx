@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -13,11 +13,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Cafe Noir | Online Booking & Menu",
-  description: "A premium cafe experience in the heart of the city.",
+  title: "Cafe Noir | Premium Coffee & Dining",
+  description:
+    "Where Every Cup Tells a Story. Book your table at Cafe Noir, New Delhi & Gurgaon.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 import BackToTop from "@/components/ui/BackToTop";
+import FloatingBookCTA from "@/components/ui/FloatingBookCTA";
 import PageTransition from "@/components/layout/PageTransition";
 
 export default function RootLayout({
@@ -32,7 +40,9 @@ export default function RootLayout({
           {children}
         </PageTransition>
         <BackToTop />
+        <FloatingBookCTA />
       </body>
     </html>
   );
 }
+

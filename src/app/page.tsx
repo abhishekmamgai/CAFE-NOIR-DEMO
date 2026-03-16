@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import MenuCard from "@/components/ui/MenuCard";
 import { menuItems } from "@/data/menu";
+import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -33,7 +34,16 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/55" />
           </div>
 
-          <div className="max-w-7xl mx-auto text-center relative z-10 text-white">
+          <div className="max-w-7xl mx-auto text-center relative z-10 text-white flex flex-col items-center">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="mb-8"
+            >
+              <Logo size="md" className="md:hidden" variant="light" />
+              <Logo size="lg" className="hidden md:inline-flex" variant="light" />
+            </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -45,7 +55,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="font-serif text-5xl md:text-7xl mb-8 leading-tight max-w-4xl mx-auto"
+              className="font-serif text-[2.5rem] md:text-5xl lg:text-7xl mb-8 leading-tight max-w-4xl mx-auto"
             >
               Where Every Cup <br /> Tells a Story
             </motion.h1>
@@ -76,16 +86,18 @@ export default function Home() {
         </section>
 
         {/* Section 2: Chef's Picks */}
-        <section className="py-24 px-6 bg-white border-y border-cafe-border">
+        <section className="py-16 md:py-24 px-4 md:px-6 bg-white border-y border-cafe-border">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <p className="text-cafe-amber font-medium tracking-[0.2em] text-xs uppercase mb-4">
                 Our Favorites
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl text-cafe-dark">Chef&apos;s Picks This Week</h2>
+              <h2 className="font-serif text-2xl md:text-3xl lg:text-5xl text-cafe-dark">
+                Chef&apos;s Picks This Week
+              </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {featuredItems.map((item) => (
                 <MenuCard key={item.id} item={item} />
               ))}
@@ -100,7 +112,7 @@ export default function Home() {
         </section>
 
         {/* SECTION A: Our Story */}
-        <section className="py-24 px-6 bg-[#FDF6EC]">
+        <section className="py-16 md:py-24 px-4 md:px-6 bg-[#FDF6EC]">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -135,16 +147,18 @@ export default function Home() {
         </section>
 
         {/* SECTION B: Why Cafe Noir */}
-        <section className="py-24 px-6 bg-white">
+        <section className="py-16 md:py-24 px-4 md:px-6 bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
               <p className="text-cafe-amber font-medium tracking-[0.2em] text-xs uppercase mb-4">
                 The Experience
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl text-cafe-dark">Why Cafe Noir</h2>
+              <h2 className="font-serif text-2xl md:text-3xl lg:text-5xl text-cafe-dark">
+                Why Cafe Noir
+              </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
               {[
                 {
                   icon: Coffee,
@@ -183,16 +197,18 @@ export default function Home() {
         </section>
 
         {/* SECTION C: Testimonials */}
-        <section className="py-24 px-6 bg-[#FDF6EC]">
+        <section className="py-16 md:py-24 px-4 md:px-6 bg-[#FDF6EC]">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-20">
+            <div className="text-center mb-12 md:mb-20">
               <p className="text-cafe-amber font-medium tracking-[0.2em] text-xs uppercase mb-4">
                 Kind Words
               </p>
-              <h2 className="font-serif text-3xl md:text-5xl text-cafe-dark">What Guests Say</h2>
+              <h2 className="font-serif text-2xl md:text-3xl lg:text-5xl text-cafe-dark">
+                What Guests Say
+              </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 scrollbar-hide">
               {[
                 {
                   text: "The Signature Latte changed my morning routine forever. Hands down the best cafe in Delhi.",
@@ -216,7 +232,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="bg-white p-10 rounded-[12px] border border-cafe-border relative"
+                  className="bg-white p-8 md:p-10 rounded-[12px] border border-cafe-border relative min-w-[280px] snap-center md:min-w-0"
                 >
                   <Quote className="text-cafe-amber/20 absolute top-8 left-8 w-12 h-12" />
                   <div className="relative z-10">

@@ -18,6 +18,10 @@ html, body {
   scroll-behavior: smooth;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 :root {
   --background: #FAFAF7;
   --foreground: #2C1810;
