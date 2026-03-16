@@ -43,7 +43,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link
           href="/"
-          className="transition-opacity duration-200 hover:opacity-80"
+          className={cn(
+            "transition-opacity duration-200 hover:opacity-80",
+            pathname === "/" && !scrolled ? "opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto" : "opacity-100"
+          )}
           aria-label="Cafe Noir home"
         >
           <Logo size="sm" variant="dark" />
