@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cafe-dark: #2C1810;
+  --color-cafe-brown: #8B4513;
+  --color-cafe-amber: #BA7517;
+  --color-cafe-amber-light: #FAEEDA;
+  --color-cafe-amber-deep: #633806;
+  --color-cafe-bg: #FAFAF7;
+  --color-cafe-muted: #888780;
+  --color-cafe-border: #D3D1C7;
+
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+}
+
+html, body {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --background: #FAFAF7;
+  --foreground: #2C1810;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6, .font-serif {
+  font-family: var(--font-serif);
+}
