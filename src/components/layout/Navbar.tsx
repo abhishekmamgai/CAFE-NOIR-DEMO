@@ -45,7 +45,7 @@ export default function Navbar() {
           href="/"
           className={cn(
             "transition-opacity duration-200 hover:opacity-80",
-            pathname === "/" && !scrolled ? "opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto" : "opacity-100"
+            pathname === "/" ? "opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto" : "opacity-100"
           )}
           aria-label="Cafe Noir home"
         >
